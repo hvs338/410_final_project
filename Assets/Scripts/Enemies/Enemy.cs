@@ -111,6 +111,7 @@ public class Enemy : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+        Debug.Log("Enemy Dead");
     }
 
     private void OnDrawGizmosSelected()
@@ -121,11 +122,6 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
             
-    public void GetShot(float damage)
-        {
-                //Vector3 force = direction * 5 + Vector3.up * 10;
-                Health = Health - damage;
 
-        }
         
 }

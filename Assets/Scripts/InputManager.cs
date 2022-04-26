@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Sprint.performed += ctx => motor.Sprint();
         onFoot.Shoot.performed += _ => GC.Shoot();
+        onFoot.Reload.performed+= _ => GC.Reload();
 
     
         

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
+
 
 
 
@@ -13,6 +17,8 @@ public class GunController : MonoBehaviour
     public float fireRate = 0.1f;
     public int clipSize = 30;
     public int AmmoCapacity = 270;
+    public float reloadTime;
+
 
    
 
@@ -23,9 +29,15 @@ public class GunController : MonoBehaviour
     public int reserveAmmo;
 
     Transform cam;
+    public Transform attackPoint;
+    public LayerMask whatIsEnemy;
+    //public GameObject muzzleFlash, bulletHoleGraphic;
+    
+    //public float camShakeMagnitude, camShakeDuration;
+    public TextMeshProUGUI AmmoCount;
 
     float range = 50f;
-    float damage = 10f;
+    int damage = 10;
 
     public void Start(){
         currentAmmo = clipSize;
@@ -34,43 +46,79 @@ public class GunController : MonoBehaviour
 
         cam = Camera.main.transform;
 
+ 
+        //AmmoCount.SetText(clipSize.ToString());
+        //text = GetComponent<Canvas>().ammo.text;
+
+
     }
-    //InputAction.CallbackContext obj
+       private void Update()
+    {
+        // Cant get this fucking working
+        /*
+        string clipSize_string = clipSize.ToString();
+
+        string currentAmmo_string = currentAmmo.ToString();
+
+        string fullDisplay = currentAmmo_string +" / "+ clipSize_string;
+        
+        AmmoCount.SetText(fullDisplay);
+        */
+
+        //SetText
+        //Debug.Log(currentAmmo);
+        //Debug.Log(clipSize);
+        //AmmoCount.text = currentAmmo.ToString() + " / " + clipSize.ToString();
+    }
+    
     public void Shoot(){
 
         if(canshoot && currentAmmo>0){
-            
             canshoot = false;
             currentAmmo = currentAmmo-1;
-            //Debug.Log(currentAmmo);
-            //StartCoroutine(ShootGun());
+
+            //Ray Cast AKA Shooting
             Ray ray = new Ray(cam.transform.position,cam.transform.forward);
-    
             if(Physics.Raycast(cam.position,cam.forward,out RaycastHit hit, range)){
-
-            
+                    Debug.Log(hit.collider.name);
+                if(hit.transform.TryGetComponent<Enemy>(out Enemy EN)){
+                    Debug.Log("hit");
+                    EN.TakeDamage(damage);
+                }
             }
-        }
-        else{
-            Debug.Log("Hey");
-            Invoke(nameof(CooldownFinished),fireRate);
+        
+        
+        //Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
+        //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
+        //bulletsLeft--;
+        //bulletsShot--;
+        Invoke("CooldownFinished",fireRate);
         }
 
-            
 
     }
 
     public void Reload(){
-        if(currentAmmo< reserveAmmo && reserveAmmo>0){
+        Debug.Log("Reloading");
+
+        if(currentAmmo < clipSize && reserveAmmo>0){
+
+            int amountNeeded = clipSize - currentAmmo;
+            if(amountNeeded >= reserveAmmo){
+                currentAmmo += reserveAmmo;
+                reserveAmmo -= amountNeeded;
+            }
+
+            else{
+
+                currentAmmo = clipSize;
+                reserveAmmo-= amountNeeded;
+
+            }
 
         }
     }
-    /*IEnumerator ShootGun(){
-        yield return new WaitForSeconds(fireRate);
-        canshoot = true;
-    }
-    */
         private void CooldownFinished()
     {
         canshoot = true;
