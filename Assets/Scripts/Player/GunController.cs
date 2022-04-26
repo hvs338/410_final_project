@@ -31,7 +31,8 @@ public class GunController : MonoBehaviour
     Transform cam;
     public Transform attackPoint;
     public LayerMask whatIsEnemy;
-    //public GameObject muzzleFlash, bulletHoleGraphic;
+    public ParticleSystem muzzleFlash, bullet;
+    public GameObject bulletHoleGraphic;  
     
     //public float camShakeMagnitude, camShakeDuration;
     public TextMeshProUGUI AmmoCount;
@@ -74,6 +75,8 @@ public class GunController : MonoBehaviour
     public void Shoot(){
 
         if(canshoot && currentAmmo>0){
+            muzzleFlash.Play();
+            bullet.Play();
             canshoot = false;
             currentAmmo = currentAmmo-1;
 
@@ -88,7 +91,7 @@ public class GunController : MonoBehaviour
             }
         
         
-        //Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
+        Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         //bulletsLeft--;
