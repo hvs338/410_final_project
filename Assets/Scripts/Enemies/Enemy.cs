@@ -6,14 +6,14 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float Health = 100f;
+    public int Health = 100;
      public NavMeshAgent agent;
 
     public Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    public float health;
+
     public float speed;
 
     //Patroling
@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     bool alreadyAttacked;
     public GameObject projectile;
     public bool isAttacking;
+    public ConstantForce gravity;
 
     //States
     public float sightRange, attackRange;
@@ -36,6 +37,8 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        gravity = gameObject.AddComponent<ConstantForce>();
+        gravity.force = new Vector3(0.0f, -9.81f, 0.0f);
         
     }
 
@@ -104,9 +107,10 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        Health -= damage;
+        Debug.Log(Health);
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (Health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
     private void DestroyEnemy()
     {
