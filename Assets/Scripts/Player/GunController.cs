@@ -19,6 +19,8 @@ public class GunController : MonoBehaviour
     public int AmmoCapacity = 270;
     public float reloadTime;
 
+    public float Firing;
+
 
    
 
@@ -32,44 +34,43 @@ public class GunController : MonoBehaviour
     public Transform attackPoint;
     public LayerMask whatIsEnemy;
     public ParticleSystem muzzleFlash, bullet;
-    public GameObject bulletHoleGraphic;  
+    public GameObject bulletHoleGraphic,fleshHit;  
     
     //public float camShakeMagnitude, camShakeDuration;
     public TextMeshProUGUI AmmoCount;
+    public TextMeshProUGUI Points;
 
+    //public Animator animation;
+    public GameObject ak;
+
+    public int playerPoints;
     float range = 50f;
     int damage = 10;
+    GameObject player;
 
     public void Start(){
         currentAmmo = clipSize;
         reserveAmmo = AmmoCapacity;
-        canshoot = true;
-
+        canshoot = true;        
+        playerPoints = 500;
         cam = Camera.main.transform;
-
- 
-        //AmmoCount.SetText(clipSize.ToString());
-        //text = GetComponent<Canvas>().ammo.text;
+        player = GameObject.Find("Player");
 
 
     }
        private void Update()
     {
-        // Cant get this fucking working
-        /*
+    
         string clipSize_string = clipSize.ToString();
 
         string currentAmmo_string = currentAmmo.ToString();
+        string reserve = reserveAmmo.ToString();
 
-        string fullDisplay = currentAmmo_string +" / "+ clipSize_string;
+        string fullDisplay = currentAmmo_string +" / "+ reserve;
         
         AmmoCount.SetText(fullDisplay);
-        */
-
-        //SetText
-        //Debug.Log(currentAmmo);
-        //Debug.Log(clipSize);
-        //AmmoCount.text = currentAmmo.ToString() + " / " + clipSize.ToString();
+        Points.SetText(playerPoints.ToString());
+     
     }
     
     public void Shoot(){
@@ -79,23 +80,27 @@ public class GunController : MonoBehaviour
             bullet.Play();
             canshoot = false;
             currentAmmo = currentAmmo-1;
-
+            
             //Ray Cast AKA Shooting
             Ray ray = new Ray(cam.transform.position,cam.transform.forward);
             if(Physics.Raycast(cam.position,cam.forward,out RaycastHit hit, range)){
                     Debug.Log(hit.collider.name);
                 if(hit.transform.TryGetComponent<Enemy>(out Enemy EN)){
                     Debug.Log("hit");
+                    playerPoints += 10;
+
+                    Instantiate(fleshHit, hit.point, Quaternion.Euler(0, 180, 0));
                     EN.TakeDamage(damage);
                 }
+                else{
+                    Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
+                }
+
             }
         
         
-        Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
-        //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-
-        //bulletsLeft--;
-        //bulletsShot--;
+        
+  
         Invoke("CooldownFinished",fireRate);
         }
 

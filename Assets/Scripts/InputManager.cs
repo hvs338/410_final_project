@@ -29,8 +29,12 @@ public class InputManager : MonoBehaviour
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Sprint.performed += ctx => motor.Sprint();
+
+        // Need to do value based input
         onFoot.Shoot.performed += _ => GC.Shoot();
-        onFoot.Reload.performed+= _ => GC.Reload();
+
+        //
+        onFoot.Reload.performed += _ => GC.Reload();
 
     
         

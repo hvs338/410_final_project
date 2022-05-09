@@ -5,13 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
-  - Ground
-  - Enemy
-  - Weapon
-  - SecondCamera
-  - BulletSpawn
-  - FxTemporaire
-  - ammo
   layers:
   - Default
   - TransparentFX
@@ -19,12 +12,12 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - whatIsEnemy
+  - 
+  - 
   - Lighting
   - Ground
   - Postprocessing
-  - Player
+  - 
   - 
   - 
   - 

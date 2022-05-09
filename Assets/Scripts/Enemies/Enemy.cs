@@ -113,7 +113,12 @@ public class Enemy : MonoBehaviour
         if (Health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
     private void DestroyEnemy()
+
     {
+        GunController points;
+         points = player.GetComponent<GunController>();
+
+        points.playerPoints += 60;
         Destroy(gameObject);
         Debug.Log("Enemy Dead");
     }
