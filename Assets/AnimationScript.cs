@@ -10,8 +10,8 @@ public class AnimationScript : MonoBehaviour
     UnityEngine.Animator anim;
     PlayerInput input;
     bool Firing;
-    public AudioSource audio;
-    public AudioClip shootSound;
+    public AudioSource Audio;
+    
 
 
     void Awake(){
@@ -19,11 +19,12 @@ public class AnimationScript : MonoBehaviour
         input = new PlayerInput();
         input.OnFoot.Shoot.performed += Animate_and_Sound ;
         input.OnFoot.Reload.performed += Reload_Animate;
+        
     }
     void Start()
     {
         anim = GetComponent<UnityEngine.Animator>();
-        audio = GetComponent<AudioSource>();
+        Audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,8 +37,8 @@ public class AnimationScript : MonoBehaviour
     }
     void Animate_and_Sound(InputAction.CallbackContext obj){
         anim.SetBool("Firing",true);  
-        audio.clip = shootSound;
-        audio.Play();
+        
+        Audio.Play();
     }
 
     void Reload_Animate(InputAction.CallbackContext obj){
@@ -45,6 +46,10 @@ public class AnimationScript : MonoBehaviour
 
         if(info.IsName("Reload")) return;
         anim.CrossFadeInFixedTime("Reload",0.01f);
+
+    }
+
+    void stop_idle(){
 
     }
     void OnEnable(){

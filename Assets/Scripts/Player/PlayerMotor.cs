@@ -75,12 +75,14 @@ public class PlayerMotor : MonoBehaviour
 
     }
 
-    public void Sprint(){
-        sprinting = !sprinting;
-        if(sprinting)
-            speed = 8;
-        else
-            speed = 5;
+    public void Sprint(float input){
+        if (input == 1){
+    
+            speed = 9;
+        }
 
+        else{
+            speed = 5;
+        }
     }
 }

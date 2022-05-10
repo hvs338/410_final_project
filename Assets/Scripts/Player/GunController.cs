@@ -14,12 +14,13 @@ public class GunController : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("Gun Settings")]
-    public float fireRate = 0.1f;
+    public float fireRate = 0.01f;
     public int clipSize = 30;
     public int AmmoCapacity = 270;
     public float reloadTime;
 
     public float Firing;
+    UnityEngine.Animator anim;
 
 
    
@@ -67,7 +68,8 @@ public class GunController : MonoBehaviour
         aim_pos_vec = aim_pos.transform.localPosition;
         original_pos_vec = original_pos.transform.localPosition;
 
-        
+        anim = GetComponentInChildren<UnityEngine.Animator>();
+        Debug.Log(anim);
 
 
     }
@@ -82,13 +84,13 @@ public class GunController : MonoBehaviour
         string fullDisplay = currentAmmo_string +" / "+ reserve;
         
         AmmoCount.SetText(fullDisplay);
-        Points.SetText(playerPoints.ToString());
+        Points.SetText("$"+playerPoints.ToString());
      
     }
     
-    public void Shoot(float input){
-    if( input == 1){
-        if(canshoot && currentAmmo>0){
+    public void Shoot(){
+    //if( input == 1){
+        if(currentAmmo >0){
             muzzleFlash.Play();
             bullet.Play();
             canshoot = false;
@@ -112,7 +114,7 @@ public class GunController : MonoBehaviour
             }
         
         Invoke("CooldownFinished",fireRate);
-        }
+        //}
     }
 
 
@@ -144,12 +146,16 @@ public class GunController : MonoBehaviour
 
     public void processAim(float input){
         if(!isReloading){
+
+
         
             if(input == 1){
+                anim.SetBool("Aiming",true);
 
                 gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,aim_pos_vec,Time.deltaTime*aimSpeed);
             }
             else{
+                anim.SetBool("Aiming",false);
 
                 gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,original_pos_vec,Time.deltaTime*aimSpeed);
 
@@ -162,6 +168,7 @@ public class GunController : MonoBehaviour
     }
         private void CooldownFinished()
     {
+        Debug.Log("coooldown");
         canshoot = true;
         isReloading = false;
     }

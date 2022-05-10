@@ -32,7 +32,10 @@ public class InputManager : MonoBehaviour
 
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
-        onFoot.Sprint.performed += ctx => motor.Sprint();
+        onFoot.Shoot.performed += ctx => GC.Shoot();
+
+      
+    
 
         // Need to do value based input
         
@@ -54,7 +57,8 @@ public class InputManager : MonoBehaviour
     }
     void Update(){
         GC.processAim(onFoot.Aim.ReadValue<float>());
-        GC.Shoot(onFoot.Shoot.ReadValue<float>());
+        //GC.Shoot(onFoot.Shoot.ReadValue<float>());
+        motor.Sprint(onFoot.Sprint.ReadValue<float>());
     }
 
     private void LateUpdate(){
