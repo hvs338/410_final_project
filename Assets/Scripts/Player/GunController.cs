@@ -31,7 +31,7 @@ public class GunController : MonoBehaviour
     public int reserveAmmo;
 
     Transform cam;
-    public Transform attackPoint;
+    
     public LayerMask whatIsEnemy;
     public ParticleSystem muzzleFlash, bullet;
     public GameObject bulletHoleGraphic,fleshHit;  
@@ -43,10 +43,18 @@ public class GunController : MonoBehaviour
     //public Animator animation;
     public GameObject ak;
 
+    public GameObject original_pos;
+    public Vector3 original_pos_vec;
+    public GameObject aim_pos;
+    public Vector3 aim_pos_vec;
+    public GameObject gun;
+
     public int playerPoints;
     float range = 50f;
     int damage = 10;
     GameObject player;
+    public float aimSpeed = 8f;
+    public bool isReloading;
 
     public void Start(){
         currentAmmo = clipSize;
@@ -55,6 +63,11 @@ public class GunController : MonoBehaviour
         playerPoints = 500;
         cam = Camera.main.transform;
         player = GameObject.Find("Player");
+        gun = GameObject.Find("FPS");
+        aim_pos_vec = aim_pos.transform.localPosition;
+        original_pos_vec = original_pos.transform.localPosition;
+
+        
 
 
     }
@@ -73,8 +86,8 @@ public class GunController : MonoBehaviour
      
     }
     
-    public void Shoot(){
-
+    public void Shoot(float input){
+    if( input == 1){
         if(canshoot && currentAmmo>0){
             muzzleFlash.Play();
             bullet.Play();
@@ -98,16 +111,15 @@ public class GunController : MonoBehaviour
 
             }
         
-        
-        
-  
         Invoke("CooldownFinished",fireRate);
         }
+    }
 
 
     }
 
     public void Reload(){
+         isReloading= true;
         Debug.Log("Reloading");
 
         if(currentAmmo < clipSize && reserveAmmo>0){
@@ -126,10 +138,32 @@ public class GunController : MonoBehaviour
             }
 
         }
+        Invoke("CooldownFinished",2);
+        
+    }
+
+    public void processAim(float input){
+        if(!isReloading){
+        
+            if(input == 1){
+
+                gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,aim_pos_vec,Time.deltaTime*aimSpeed);
+            }
+            else{
+
+                gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,original_pos_vec,Time.deltaTime*aimSpeed);
+
+            }
+
+
+        //gun.transform.Localosition = Vector3.Lerp(gun.transform.localPosition,aim_pos_vec,Time.deltaTime*aimSpeed);
+        }
+
     }
         private void CooldownFinished()
     {
         canshoot = true;
+        isReloading = false;
     }
 
 }

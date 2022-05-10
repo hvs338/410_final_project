@@ -41,6 +41,9 @@ public class AnimationScript : MonoBehaviour
     }
 
     void Reload_Animate(InputAction.CallbackContext obj){
+        AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
+
+        if(info.IsName("Reload")) return;
         anim.CrossFadeInFixedTime("Reload",0.01f);
 
     }
