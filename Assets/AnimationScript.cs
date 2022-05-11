@@ -12,7 +12,7 @@ public class AnimationScript : MonoBehaviour
     bool Firing;
     public AudioSource Audio;
     
-
+    private GunController player;
 
     void Awake(){
 
@@ -25,6 +25,7 @@ public class AnimationScript : MonoBehaviour
     {
         anim = GetComponent<UnityEngine.Animator>();
         Audio = GetComponent<AudioSource>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<GunController>();
     }
 
     // Update is called once per frame
@@ -36,16 +37,21 @@ public class AnimationScript : MonoBehaviour
 
     }
     void Animate_and_Sound(InputAction.CallbackContext obj){
+        if (player.canshoot == true){ 
         anim.SetBool("Firing",true);  
         
         Audio.Play();
+        }
     }
 
     void Reload_Animate(InputAction.CallbackContext obj){
+
+        if(player.canReload == true){
         AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
 
         if(info.IsName("Reload")) return;
         anim.CrossFadeInFixedTime("Reload",0.01f);
+    }
 
     }
 

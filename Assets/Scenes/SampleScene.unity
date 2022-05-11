@@ -1543,7 +1543,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.5
   projectile: {fileID: 0}
   isAttacking: 0
-  gravity: {fileID: 0}
+  Zombie_anim: {fileID: 0}
   sightRange: 20
   attackRange: 1.5
   playerInSightRange: 0
@@ -8874,19 +8874,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 715618126}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &717902406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3958247402871594669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d0cb0031e6d664f8bd03a4dc1e2b99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Audio: {fileID: 0}
 --- !u!95 &717902407
 Animator:
   serializedVersion: 4
@@ -17978,9 +17965,11 @@ MonoBehaviour:
   aim_pos: {fileID: 1299323427}
   aim_pos_vec: {x: 0, y: 0, z: 0}
   gun: {fileID: 0}
+  canReload: 0
   playerPoints: 0
   aimSpeed: 8
   isReloading: 0
+  Audio: {fileID: 0}
 --- !u!114 &1392745256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22174,6 +22163,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7389507112651452681, guid: 6dc4cf4496348884d8ee27743ae38562,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7ba4df9a8f1f38f4d8e693767cade29b, type: 2}
     - target: {fileID: 7478079058741212813, guid: 6dc4cf4496348884d8ee27743ae38562,
         type: 3}
       propertyPath: m_Layer
@@ -35040,7 +35034,6 @@ GameObject:
   - component: {fileID: 3958247402871292557}
   - component: {fileID: 717902408}
   - component: {fileID: 717902407}
-  - component: {fileID: 717902406}
   m_Layer: 0
   m_Name: FPS
   m_TagString: Untagged

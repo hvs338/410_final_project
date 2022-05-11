@@ -14,7 +14,7 @@ public class GunController : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("Gun Settings")]
-    public float fireRate = 0.01f;
+    public float fireRate = 1f;
     public int clipSize = 30;
     public int AmmoCapacity = 270;
     public float reloadTime;
@@ -49,6 +49,7 @@ public class GunController : MonoBehaviour
     public GameObject aim_pos;
     public Vector3 aim_pos_vec;
     public GameObject gun;
+    public bool canReload;
 
     public int playerPoints;
     float range = 50f;
@@ -56,6 +57,10 @@ public class GunController : MonoBehaviour
     GameObject player;
     public float aimSpeed = 8f;
     public bool isReloading;
+    public IEnumerator coroutine;
+    private Animator fps_animator;
+      public AudioSource Audio;
+    
 
     public void Start(){
         currentAmmo = clipSize;
@@ -69,7 +74,13 @@ public class GunController : MonoBehaviour
         original_pos_vec = original_pos.transform.localPosition;
 
         anim = GetComponentInChildren<UnityEngine.Animator>();
-        Debug.Log(anim);
+        
+        coroutine = CooldownFinished();
+        canReload = false;
+        fps_animator = GetComponentInChildren<UnityEngine.Animator>();
+        Audio = GetComponentInChildren<AudioSource>();
+         
+    
 
 
     }
@@ -87,44 +98,65 @@ public class GunController : MonoBehaviour
         Points.SetText("$"+playerPoints.ToString());
      
     }
+    private void FixedUpdate(){
+        AnimatorStateInfo info = fps_animator.GetCurrentAnimatorStateInfo(0);
+
+        if(info.IsName("Fire")) anim.SetBool("Firing",false);
+    }
     
     public void Shoot(){
-    //if( input == 1){
-        if(currentAmmo >0){
-            muzzleFlash.Play();
-            bullet.Play();
-            canshoot = false;
-            currentAmmo = currentAmmo-1;
-            
-            //Ray Cast AKA Shooting
-            Ray ray = new Ray(cam.transform.position,cam.transform.forward);
-            if(Physics.Raycast(cam.position,cam.forward,out RaycastHit hit, range)){
-                    Debug.Log(hit.collider.name);
-                if(hit.transform.TryGetComponent<Enemy>(out Enemy EN)){
-                    Debug.Log("hit");
-                    playerPoints += 10;
-
-                    Instantiate(fleshHit, hit.point, Quaternion.Euler(0, 180, 0));
-                    EN.TakeDamage(damage);
-                }
-                else{
-                    Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
-                }
-
-            }
         
-        Invoke("CooldownFinished",fireRate);
-        //}
-    }
+        //if(input == 1){
+            
+            //if(canshoot == true){
+                fps_animator.SetBool("Firing",true);
+                Audio.Play();
+                if(currentAmmo >0){
+                    muzzleFlash.Play();
+                    bullet.Play();
+                    canshoot = false;
+                    currentAmmo = currentAmmo-1;
+                    
+                    //Ray Cast AKA Shooting
+                    Ray ray = new Ray(cam.transform.position,cam.transform.forward);
+                    if(Physics.Raycast(cam.position,cam.forward,out RaycastHit hit, range)){
+                            Debug.Log(hit.collider.name);
+                        if(hit.transform.TryGetComponent<Enemy>(out Enemy EN)){
+                            Debug.Log("hit");
+                            playerPoints += 10;
 
+                            Instantiate(fleshHit, hit.point, Quaternion.Euler(0, 180, 0));
+                            EN.TakeDamage(damage);
+                        }
+                        else{
+                            Instantiate(bulletHoleGraphic, hit.point, Quaternion.Euler(0, 180, 0));
+                        }
 
+                    }
+                }
+           // }
+            /*else{
+            //Debug.Log("hey");
+            StartCoroutine(coroutine);
+            canshoot = true;
+                }
+                */
+            
+        
+
+            //}
+            //canshoot = true;
     }
 
     public void Reload(){
-         isReloading= true;
+         
         Debug.Log("Reloading");
 
         if(currentAmmo < clipSize && reserveAmmo>0){
+        AnimatorStateInfo info = fps_animator.GetCurrentAnimatorStateInfo(0);
+
+        
+        fps_animator.CrossFadeInFixedTime("Reload",0.01f);
 
             int amountNeeded = clipSize - currentAmmo;
             if(amountNeeded >= reserveAmmo){
@@ -140,7 +172,7 @@ public class GunController : MonoBehaviour
             }
 
         }
-        Invoke("CooldownFinished",2);
+        canReload = false;
         
     }
 
@@ -166,12 +198,17 @@ public class GunController : MonoBehaviour
         }
 
     }
-        private void CooldownFinished()
+        IEnumerator CooldownFinished()
     {
-        Debug.Log("coooldown");
-        canshoot = true;
-        isReloading = false;
-    }
+        
+        yield return new WaitForSeconds(1f);
+
+        }
+        
+        
+        void SetToTrue(bool b) {
+     b = true;
+ }
 
 }
    

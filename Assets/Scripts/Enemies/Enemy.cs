@@ -27,7 +27,8 @@ public class Enemy : MonoBehaviour
     bool alreadyAttacked;
     public GameObject projectile;
     public bool isAttacking;
-    public ConstantForce gravity;
+    
+    public Animator Zombie_anim;
 
     //States
     public float sightRange, attackRange;
@@ -37,8 +38,13 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        gravity = gameObject.AddComponent<ConstantForce>();
-        gravity.force = new Vector3(0.0f, -9.81f, 0.0f);
+       
+        Zombie_anim =GetComponent<Animator>();
+
+        Zombie_anim.SetBool("idle",true);
+
+        
+
         
     }
 
@@ -48,13 +54,27 @@ public class Enemy : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (!playerInSightRange && !playerInAttackRange){ 
+            Patroling();
+            Zombie_anim.SetBool("walking",true);
+        }
+        if (playerInSightRange && !playerInAttackRange){
+         ChasePlayer();
+         Zombie_anim.SetBool("running",true);
+         Zombie_anim.SetBool("attacking",false);
+
+        }
+
+        if (playerInAttackRange && playerInSightRange){ 
+        AttackPlayer();
+        Zombie_anim.SetBool("attacking",true);
+        }
     }
 
     private void Patroling()
-    {
+
+    { 
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -79,13 +99,15 @@ public class Enemy : MonoBehaviour
     }
 
     private void ChasePlayer()
-    {
+
+    {   
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
+        
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
@@ -93,6 +115,7 @@ public class Enemy : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack code here
+            
           
             ///End of attack code
 
@@ -116,7 +139,7 @@ public class Enemy : MonoBehaviour
 
     {
         GunController points;
-         points = player.GetComponent<GunController>();
+        points = player.GetComponent<GunController>();
 
         points.playerPoints += 60;
         Destroy(gameObject);
