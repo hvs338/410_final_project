@@ -25,6 +25,7 @@ public class GameManagment : MonoBehaviour
     {
         if(zombieSpawnInRounds < zombieInRound){
             if(zombieSpawnTimer > 3){
+                
                 SpawnZombie();
                 zombieSpawnTimer = 0;
             }
