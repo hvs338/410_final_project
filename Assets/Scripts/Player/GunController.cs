@@ -22,6 +22,8 @@ public class GunController : MonoBehaviour
     public float Firing;
     UnityEngine.Animator anim;
 
+    public int player_health = 100;
+    public int currentHealth;
 
    
 
@@ -59,7 +61,9 @@ public class GunController : MonoBehaviour
     public bool isReloading;
     public IEnumerator coroutine;
     private Animator fps_animator;
-      public AudioSource Audio;
+    public AudioSource Audio;
+
+    public healthBar Health_bar;
     
 
     public void Start(){
@@ -79,6 +83,9 @@ public class GunController : MonoBehaviour
         canReload = false;
         fps_animator = GetComponentInChildren<UnityEngine.Animator>();
         Audio = GetComponentInChildren<AudioSource>();
+        Health_bar.SetMaxHealth(player_health);
+        currentHealth = player_health;
+
          
     
 
@@ -108,7 +115,7 @@ public class GunController : MonoBehaviour
         
         //if(input == 1){
             
-            //if(canshoot == true){
+            if(canshoot == true){
                 fps_animator.SetBool("Firing",true);
                 Audio.Play();
                 if(currentAmmo >0){
@@ -134,6 +141,7 @@ public class GunController : MonoBehaviour
 
                     }
                 }
+            }
            // }
             /*else{
             //Debug.Log("hey");
@@ -145,12 +153,13 @@ public class GunController : MonoBehaviour
         
 
             //}
-            //canshoot = true;
+            canshoot = true;
     }
 
     public void Reload(){
          
         Debug.Log("Reloading");
+        canshoot = false;
 
         if(currentAmmo < clipSize && reserveAmmo>0){
         AnimatorStateInfo info = fps_animator.GetCurrentAnimatorStateInfo(0);
@@ -173,6 +182,7 @@ public class GunController : MonoBehaviour
 
         }
         canReload = false;
+        StartCoroutine(finishReload());
         
     }
 
@@ -208,6 +218,11 @@ public class GunController : MonoBehaviour
         
         void SetToTrue(bool b) {
      b = true;
+ }
+
+ public IEnumerator finishReload(){
+     yield return new WaitForSeconds(1f);
+     canshoot = true;
  }
 
 }
