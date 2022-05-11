@@ -122,7 +122,7 @@ public class Enemy : MonoBehaviour
             ///Attack code here\
 
 
-            player_with_components.currentHealth = 10;
+            player_with_components.currentHealth -= 10;
             Debug.Log("hiting");
             player_with_components.Health_bar.SetHealth(player_with_components.currentHealth);
 
