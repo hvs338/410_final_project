@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    Animator controller;
 
     public float speed;
 
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
     public bool isWalking;
+
 
     //Attacking
     public float timeBetweenAttacks;
@@ -38,6 +40,7 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        controller = GetComponentInParent<Animator>();
        
         Zombie_anim =GetComponent<Animator>();
 
@@ -69,6 +72,11 @@ public class Enemy : MonoBehaviour
         AttackPlayer();
         Zombie_anim.SetBool("attacking",true);
         }
+
+
+        agent.SetDestination(player.position);
+        //controller.SetFloat("speed", Mathf.Abs(agent.velocity.x) + Mathf.Abs(agent.velocity.z));
+
     }
 
     private void Patroling()
