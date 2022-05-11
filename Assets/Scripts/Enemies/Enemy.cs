@@ -10,10 +10,10 @@ public class Enemy : MonoBehaviour
      public NavMeshAgent agent;
 
     public Transform player;
+    public GunController player_with_components;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    Animator controller;
 
     public float speed;
 
@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     public float walkPointRange;
     public bool isWalking;
 
-
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -31,6 +30,7 @@ public class Enemy : MonoBehaviour
     public bool isAttacking;
     
     public Animator Zombie_anim;
+    
 
     //States
     public float sightRange, attackRange;
@@ -39,8 +39,9 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
+        player_with_components = GameObject.Find("Player").GetComponent<GunController>();;
+        
         agent = GetComponent<NavMeshAgent>();
-        controller = GetComponentInParent<Animator>();
        
         Zombie_anim =GetComponent<Animator>();
 
@@ -72,11 +73,6 @@ public class Enemy : MonoBehaviour
         AttackPlayer();
         Zombie_anim.SetBool("attacking",true);
         }
-
-
-        agent.SetDestination(player.position);
-        //controller.SetFloat("speed", Mathf.Abs(agent.velocity.x) + Mathf.Abs(agent.velocity.z));
-
     }
 
     private void Patroling()
@@ -119,21 +115,29 @@ public class Enemy : MonoBehaviour
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
-
-        if (!alreadyAttacked)
+        
+        //Debug.Log("already attacked outside coroutine" + alreadyAttacked.ToString());
+        if (alreadyAttacked == false)
         {
-            ///Attack code here
-            
-          
-            ///End of attack code
+            ///Attack code here\
+
+
+            player_with_components.currentHealth = 10;
+            Debug.Log("hiting");
+            player_with_components.Health_bar.SetHealth(player_with_components.currentHealth);
 
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            StartCoroutine(ResetAttack(2f));
         }
     }
-    private void ResetAttack()
-    {
-        alreadyAttacked = false;
+    public IEnumerator ResetAttack(float seconds)
+    {   Debug.Log("Waiting");
+        
+        yield return new WaitForSeconds(seconds);
+        alreadyAttacked = !alreadyAttacked;
+        Debug.Log(alreadyAttacked);
+        
+
     }
 
     public void TakeDamage(int damage)
