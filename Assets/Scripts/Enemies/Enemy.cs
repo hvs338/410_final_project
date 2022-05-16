@@ -13,7 +13,9 @@ public class Enemy : MonoBehaviour
     public GunController player_with_components;
 
     public LayerMask whatIsGround, whatIsPlayer;
-
+ 
+     [SerializeField]
+    public ZombieCounter aliveCount;
 
     public float speed;
 
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
         
         agent = GetComponent<NavMeshAgent>();
        
-        Zombie_anim =GetComponent<Animator>();
+        Zombie_anim = GetComponent<Animator>();
 
         Zombie_anim.SetBool("idle",true);
 
@@ -155,6 +157,7 @@ public class Enemy : MonoBehaviour
 
         points.playerPoints += 60;
         Destroy(gameObject);
+        aliveCount.counter -= 1;
         Debug.Log("Enemy Dead");
     }
 

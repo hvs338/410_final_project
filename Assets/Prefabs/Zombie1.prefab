@@ -523,12 +523,14 @@ MonoBehaviour:
   Health: 100
   agent: {fileID: 3880865986954126187}
   player: {fileID: 0}
+  player_with_components: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 2048
+  aliveCount: {fileID: 11400000, guid: 62ba9a42e677ad24d8d60584907a205a, type: 2}
   speed: 1
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
@@ -536,7 +538,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.5
   projectile: {fileID: 0}
   isAttacking: 0
-  gravity: {fileID: 0}
+  Zombie_anim: {fileID: 6005363858728967269}
   sightRange: 20
   attackRange: 1.5
   playerInSightRange: 0
