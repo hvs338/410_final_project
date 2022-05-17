@@ -11,37 +11,50 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private float distance = 3f;
     [SerializeField]
-    private LayerMask mask;
+    private LayerMask PickUp_layer;
     private PlayerUI playerUI;
 
     private InputManager inputManager;
 
+    InventoryController inventory;
 
     void Start()
     {
-        cam = GetComponent<PlayerLook>().cam;
+        cam = Camera.main;
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
+        inventory = GetComponent<InventoryController>();
+
 
     }
 
     // Update is called once per frame
-    void Update()
+    public void PickUp()
     {
-        playerUI.UpdateText(string.Empty);
+        //playerUI.UpdateText(string.Empty);
         Ray ray = new Ray(cam.transform.position,cam.transform.forward);
         RaycastHit info;
         Debug.DrawRay(ray.origin,ray.direction*distance);
-        if(Physics.Raycast(ray,out info,distance,mask)){
-            if(info.collider.GetComponent<Interactable>()!= null){
+        if(Physics.Raycast(ray,out info,distance,PickUp_layer)){
+            Debug.Log(info.transform.name);
+
+            Gun new_item = info.transform.GetComponent<ItemObject>().item as Gun; 
+            inventory.addItem(new_item);
+            Destroy(info.transform.gameObject);
+            
+        }
+    }
+
+}
+//if(info.collider.GetComponent<Interactable>()!= null){
+                /*
                 Interactable interactable = info.collider.GetComponent<Interactable>();
                 playerUI.UpdateText(interactable.promptMessage);
                 if(inputManager.onFoot.Interact.triggered){
 
-                    interactable.BaseIneract();
+                    
 
                 }
             }
-        }
-    }
-}
+            */
+        //}

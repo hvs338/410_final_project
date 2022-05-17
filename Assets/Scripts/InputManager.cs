@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
 
     [SerializeField]
     GunController GC;
+    InventoryController IC;
+    PlayerInteract interaction;
 
 
     
@@ -28,11 +30,16 @@ public class InputManager : MonoBehaviour
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
         GC = GetComponent<GunController>();
+        IC = GetComponent<InventoryController>();
+        interaction = GetComponent<PlayerInteract>();
+
         
 
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Shoot.performed += ctx => GC.Shoot();
+        onFoot.Switch.performed += ctx => IC.Switch();
+        onFoot.PickUp.performed += ctx => interaction.PickUp();
 
       
     
