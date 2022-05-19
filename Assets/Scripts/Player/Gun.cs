@@ -8,9 +8,13 @@ public class Gun : Item
         public GameObject prefab;
         public int Magazine;
         public int Capacity;
-        public float range; 
+        public float range;
+        public int damage;
+        public float playerspeed; 
         public enum GunType {Shotgun, Automatic, SemiAction, SingleShot};
         public enum Priority{Primary, Secondary};
+
+        public int price;
 
         public GunType gun_type;
         public Priority priority;

@@ -15,8 +15,8 @@ public class GunController : MonoBehaviour
     // Start is called before the first frame update
     [Header("Gun Settings")]
     public float fireRate = 1f;
-    public int clipSize = 30;
-    public int AmmoCapacity = 270;
+    public int Magazine;
+    public int AmmoCapacity;
     public float reloadTime;
 
     public float Firing;
@@ -54,8 +54,8 @@ public class GunController : MonoBehaviour
     public bool canReload;
 
     public int playerPoints;
-    float range = 50f;
-    int damage = 10;
+    public float range = 50f;
+    public int damage = 10;
     GameObject player;
     public float aimSpeed = 8f;
     public bool isReloading;
@@ -64,11 +64,14 @@ public class GunController : MonoBehaviour
     public AudioSource Audio;
 
     public healthBar Health_bar;
+
+    private InventoryController IC;
+    private Gun Weapon;
+
     
 
     public void Start(){
-        currentAmmo = clipSize;
-        reserveAmmo = AmmoCapacity;
+
         canshoot = true;        
         playerPoints = 500;
         cam = Camera.main.transform;
@@ -86,6 +89,14 @@ public class GunController : MonoBehaviour
         Health_bar.SetMaxHealth(player_health);
         currentHealth = player_health;
 
+        IC = GetComponent<InventoryController>();
+        Weapon = IC.Guns[0];
+
+        currentAmmo = Weapon.Magazine;
+        reserveAmmo = Weapon.Capacity;
+
+
+
          
     
 
@@ -94,7 +105,7 @@ public class GunController : MonoBehaviour
        private void Update()
     {
     
-        string clipSize_string = clipSize.ToString();
+        string clipSize_string = Magazine.ToString();
 
         string currentAmmo_string = currentAmmo.ToString();
         string reserve = reserveAmmo.ToString();
@@ -118,7 +129,7 @@ public class GunController : MonoBehaviour
             if(canshoot == true){
                 fps_animator.SetBool("Firing",true);
                 Audio.Play();
-                if(currentAmmo >0){
+                if(currentAmmo > 0){
                     muzzleFlash.Play();
                     bullet.Play();
                     canshoot = false;
@@ -142,6 +153,7 @@ public class GunController : MonoBehaviour
                     }
                 }
             }
+            anim.SetBool("Firing",false);
            // }
             /*else{
             //Debug.Log("hey");
@@ -161,13 +173,13 @@ public class GunController : MonoBehaviour
         Debug.Log("Reloading");
         canshoot = false;
 
-        if(currentAmmo < clipSize && reserveAmmo>0){
+        if(currentAmmo < Magazine && reserveAmmo>0){
         AnimatorStateInfo info = fps_animator.GetCurrentAnimatorStateInfo(0);
 
         
         fps_animator.CrossFadeInFixedTime("Reload",0.01f);
 
-            int amountNeeded = clipSize - currentAmmo;
+            int amountNeeded = Magazine - currentAmmo;
             if(amountNeeded >= reserveAmmo){
                 currentAmmo += reserveAmmo;
                 reserveAmmo -= amountNeeded;
@@ -175,7 +187,7 @@ public class GunController : MonoBehaviour
 
             else{
 
-                currentAmmo = clipSize;
+                currentAmmo = Magazine;
                 reserveAmmo-= amountNeeded;
 
             }

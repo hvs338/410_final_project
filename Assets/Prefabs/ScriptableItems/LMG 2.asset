@@ -19,5 +19,8 @@ MonoBehaviour:
   Magazine: 50
   Capacity: 350
   range: 50
+  damage: 25
+  playerspeed: 0.8
+  price: 1750
   gun_type: 1
   priority: 0

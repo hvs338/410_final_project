@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: AK47
   m_EditorClassIdentifier: 
   name: AK47
-  description: Automatic Gun
+  description: 'Press Q to buy, PRICE : 800'
   icon: {fileID: 0}
   prefab: {fileID: 15471636768228720, guid: c5b76d12a9a21654f99f6cb16211dd89, type: 3}
   Magazine: 30
   Capacity: 270
   range: 50
+  damage: 10
+  playerspeed: 1
+  price: 800
   gun_type: 1
   priority: 0

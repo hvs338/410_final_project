@@ -18,20 +18,26 @@ public class PlayerInteract : MonoBehaviour
 
     InventoryController inventory;
 
+    GunController gun_controller;
+
     void Start()
     {
         cam = Camera.main;
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
         inventory = GetComponent<InventoryController>();
+        gun_controller= GetComponent<GunController>();
 
 
     }
 
     // Update is called once per frame
     public void PickUp()
-    {
-        //playerUI.UpdateText(string.Empty);
+
+
+    { // USES Q KEY
+
+        
         Ray ray = new Ray(cam.transform.position,cam.transform.forward);
         RaycastHit info;
         Debug.DrawRay(ray.origin,ray.direction*distance);
@@ -39,8 +45,11 @@ public class PlayerInteract : MonoBehaviour
             Debug.Log(info.transform.name);
 
             Gun new_item = info.transform.GetComponent<ItemObject>().item as Gun; 
+
+            if( new_item.price <= gun_controller.playerPoints){
             inventory.addItem(new_item);
             Destroy(info.transform.gameObject);
+            }
             
         }
     }

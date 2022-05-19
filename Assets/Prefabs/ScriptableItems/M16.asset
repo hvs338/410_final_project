@@ -19,5 +19,8 @@ MonoBehaviour:
   Magazine: 30
   Capacity: 260
   range: 50
+  damage: 10
+  playerspeed: 1
+  price: 1000
   gun_type: 2
   priority: 0
