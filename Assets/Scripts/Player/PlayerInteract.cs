@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerInteract : MonoBehaviour
 {
     // Start is called before the first frame update
 
     private Camera cam;
+
 
     [SerializeField]
     private float distance = 3f;
@@ -19,8 +23,12 @@ public class PlayerInteract : MonoBehaviour
     InventoryController inventory;
 
     GunController gun_controller;
+    public TextMeshProUGUI itemDescription;
+    //public  text_info; 
 
-    void Start()
+    public bool bought_before;
+    public bool bought_before2;
+    private void Start()
     {
         cam = Camera.main;
         playerUI = GetComponent<PlayerUI>();
@@ -28,6 +36,30 @@ public class PlayerInteract : MonoBehaviour
         inventory = GetComponent<InventoryController>();
         gun_controller= GetComponent<GunController>();
 
+
+    }
+
+    private void Update(){
+
+        itemDescription.SetText(string.Empty);
+        Ray ray = new Ray(cam.transform.position,cam.transform.forward);
+        RaycastHit info;
+        Debug.DrawRay(ray.origin,ray.direction*distance);
+        if(Physics.Raycast(ray,out info,distance,PickUp_layer)){
+
+            
+            Gun new_gun = info.transform.GetComponent<ItemObject>().item as Gun;
+
+            bought_before2 = check_in_inventory(new_gun);
+            //Debug.Log(bought_before2);
+            if(bought_before != true){
+            itemDescription.SetText(new_gun.information);
+            }
+            else{
+                itemDescription.SetText("Buy more anumition for gun, $350");
+            }
+
+        }
 
     }
 
@@ -42,28 +74,65 @@ public class PlayerInteract : MonoBehaviour
         RaycastHit info;
         Debug.DrawRay(ray.origin,ray.direction*distance);
         if(Physics.Raycast(ray,out info,distance,PickUp_layer)){
-            Debug.Log(info.transform.name);
+           
+            
 
-            Gun new_item = info.transform.GetComponent<ItemObject>().item as Gun; 
+            Gun new_item = info.transform.GetComponent<ItemObject>().item as Gun;
 
-            if( new_item.price <= gun_controller.playerPoints){
-            inventory.addItem(new_item);
-            Destroy(info.transform.gameObject);
+            Debug.Log(new_item.name);
+
+
+            bought_before = check_in_inventory(new_item);
+
+            if( new_item.price <= gun_controller.playerPoints && bought_before != true ){
+                
+                inventory.addItem(new_item);
+                //new_item.bought_before = true;
+                gun_controller.playerPoints = gun_controller.playerPoints - new_item.price;
+                //Destroy(info.transform.gameObject);
             }
+
+            else{
+
+                int to_add = new_item.Capacity - gun_controller.reserveAmmo;
+                gun_controller.reserveAmmo += to_add;
+
+            }
+
+           
+
+            itemDescription.SetText("Not Enough Money, go kill some Zombies Loser");
             
         }
     }
+    public bool check_in_inventory(Gun new_item){
 
-}
-//if(info.collider.GetComponent<Interactable>()!= null){
-                /*
-                Interactable interactable = info.collider.GetComponent<Interactable>();
-                playerUI.UpdateText(interactable.promptMessage);
-                if(inputManager.onFoot.Interact.triggered){
-
-                    
-
+            int inventory_length = inventory.Guns.Length;
+            //Debug.Log(inventory_length);
+            for (int i = 0; i < inventory_length; i ++){
+                
+                
+                if(inventory.Guns[i] != null){
+                    //Debug.Log(inventory.Guns[i].name);
+                if(new_item.name == inventory.Guns[i].name){
+                    //print("ITS TRUE");
+                    bought_before = true;
+                    return bought_before;
+                    }
+                else{
+                    bought_before = false;
+                    return bought_before;
                 }
+                }
+                
             }
-            */
-        //}
+
+        return bought_before;
+        
+    
+        }
+
+
+    }
+
+

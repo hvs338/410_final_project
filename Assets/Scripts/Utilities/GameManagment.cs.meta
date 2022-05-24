@@ -3,7 +3,11 @@ guid: c997c082fb8101641b491123c2f473d6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - zombieEnemy: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562,
+      type: 3}
+  - player: {fileID: 1182811354758914, guid: 9319d76a108f54578b5b8707146621d4, type: 3}
+  - aliveCount: {fileID: 11400000, guid: 62ba9a42e677ad24d8d60584907a205a, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

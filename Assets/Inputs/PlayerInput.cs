@@ -85,7 +85,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": ""Shoot"",
                     ""type"": ""Value"",
                     ""id"": ""e183ef0f-0e9f-4abb-8e93-d828cbd36562"",
-                    ""expectedControlType"": ""Touch"",
+                    ""expectedControlType"": ""Integer"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

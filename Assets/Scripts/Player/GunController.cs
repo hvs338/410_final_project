@@ -73,7 +73,7 @@ public class GunController : MonoBehaviour
     public void Start(){
 
         canshoot = true;        
-        playerPoints = 500;
+        playerPoints = 1000;
         cam = Camera.main.transform;
         player = GameObject.Find("Player");
         gun = GameObject.Find("FPS");
@@ -82,7 +82,7 @@ public class GunController : MonoBehaviour
 
         anim = GetComponentInChildren<UnityEngine.Animator>();
         
-        coroutine = CooldownFinished();
+        
         canReload = false;
         fps_animator = GetComponentInChildren<UnityEngine.Animator>();
         Audio = GetComponentInChildren<AudioSource>();
@@ -93,7 +93,9 @@ public class GunController : MonoBehaviour
         Weapon = IC.Guns[0];
 
         currentAmmo = Weapon.Magazine;
+
         reserveAmmo = Weapon.Capacity;
+        Magazine = Weapon.Magazine;
 
 
 
@@ -122,9 +124,9 @@ public class GunController : MonoBehaviour
         if(info.IsName("Fire")) anim.SetBool("Firing",false);
     }
     
-    public void Shoot(){
+    public void Shoot(float input){
         
-        //if(input == 1){
+        if(input == 1){
             
             if(canshoot == true){
                 fps_animator.SetBool("Firing",true);
@@ -154,18 +156,12 @@ public class GunController : MonoBehaviour
                 }
             }
             anim.SetBool("Firing",false);
-           // }
-            /*else{
+            }
+            else{
             //Debug.Log("hey");
-            StartCoroutine(coroutine);
-            canshoot = true;
-                }
-                */
-            
-        
+            StartCoroutine(CooldownFinished(IC.Guns[IC.currentlyEquipped].fireRate));
 
-            //}
-            canshoot = true;
+    }
     }
 
     public void Reload(){
@@ -173,6 +169,7 @@ public class GunController : MonoBehaviour
         Debug.Log("Reloading");
         canshoot = false;
 
+ 
         if(currentAmmo < Magazine && reserveAmmo>0){
         AnimatorStateInfo info = fps_animator.GetCurrentAnimatorStateInfo(0);
 
@@ -199,6 +196,8 @@ public class GunController : MonoBehaviour
     }
 
     public void processAim(float input){
+
+        
         if(!isReloading){
 
 
@@ -220,10 +219,11 @@ public class GunController : MonoBehaviour
         }
 
     }
-        IEnumerator CooldownFinished()
+        IEnumerator CooldownFinished(float fire_rate)
     {
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(fire_rate);
+        canshoot = true;
 
         }
         

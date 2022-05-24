@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: Sniper 1
   m_EditorClassIdentifier: 
   name: 
-  description: 
+  description: 'Press Q to buy, PRICE : 1000'
   icon: {fileID: 0}
-  prefab: {fileID: 8038777645927203370, guid: b74677cf3ab74284a98dc10f4a6550b1, type: 3}
+  prefab: {fileID: 8038777645927203370, guid: fa4931af7712edd48b6fb355c5a58588, type: 3}
   Magazine: 1
   Capacity: 40
   range: 100
   damage: 30
+  information: 'Press Q to buy, PRICE : 1000'
   playerspeed: 0.95
   price: 1000
   gun_type: 3
   priority: 0
+  bought_before: 0
+  fireRate: 2

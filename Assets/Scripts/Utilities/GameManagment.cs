@@ -14,7 +14,7 @@ public class GameManagment : MonoBehaviour
     [SerializeField] 
     public GameObject player;
    
-        
+    public int round = 0;
     
         
     public int startCount = 2;
@@ -53,49 +53,33 @@ public class GameManagment : MonoBehaviour
     void BeginNewRound(){
         Debug.Log("Wave Completed!");
         state = SpawnState.COUNTING;
-
         waveCountDown = timeBetweenWaves;
-
         if(aliveCount.counter == 0){
             Debug.Log("All waves complete!");
         }
-
         
     }
-
 */
     // Start is called before the first frame update
     void Start()
     {
         waveCountDown = timeBetweenWaves;
         aliveCount.counter = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {   
-        /*
-        if(state == SpawnState.WAITING){
-            // Check if enemies are still alive
-            if(!EnemyIsAlive(waves[nextWave - 1])){
-                // Begin new round
-                //Debug.Log("Wave Completed");
-                //return;
-                BeginNewRound();
-            }
-            else{
-                return;
-            }
-        }
-        */
+       
 
         if(waveCountDown <= 0){
             if(state != SpawnState.SPAWNING){
                 // START spawning wave
                 if(aliveCount.counter == 0){
-                    new WaitForSeconds(10);
+                    round++;
+                    //new WaitForSeconds(10);
                     StartCoroutine(SpawnWave());
-                    
                 }
             }
         }
@@ -108,6 +92,8 @@ public class GameManagment : MonoBehaviour
     IEnumerator SpawnWave(){
         //Debug.Log("Spawning Wave: " + _wave.name);
         state = SpawnState.SPAWNING;
+
+        yield return new WaitForSeconds(15);
 
         // SPAWN
         startCount += 5;
@@ -140,3 +126,4 @@ public class GameManagment : MonoBehaviour
         Debug.Log("Spawning Enemy: " + _enemy.name);
     }
 }
+

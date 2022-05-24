@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: LMG 2
   m_EditorClassIdentifier: 
   name: 
-  description: 
+  description: 'Press Q to buy, PRICE : 1750'
   icon: {fileID: 0}
-  prefab: {fileID: 1429198926247214, guid: 71b7d7fa5358d7949bce80a648ee4b47, type: 3}
+  prefab: {fileID: 1429198926247214, guid: cfe8335e5a158c34eb9c26f82062e956, type: 3}
   Magazine: 50
   Capacity: 350
   range: 50
   damage: 25
+  information: 'Press Q to buy, PRICE : 1750'
   playerspeed: 0.8
   price: 1750
   gun_type: 1
   priority: 0
+  bought_before: 0
+  fireRate: 1.5

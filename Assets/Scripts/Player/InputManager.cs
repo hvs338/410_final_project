@@ -37,18 +37,10 @@ public class InputManager : MonoBehaviour
 
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
-        onFoot.Shoot.performed += ctx => GC.Shoot();
+        //onFoot.Shoot.performed += ctx => GC.Shoot();
         onFoot.Switch.performed += ctx => IC.Switch();
         onFoot.PickUp.performed += ctx => interaction.PickUp();
-
-      
-    
-
-        // Need to do value based input
-        
-
-        //
-        onFoot.Reload.performed += _ => GC.Reload();
+        onFoot.Reload.performed += ctx => GC.Reload();
         
 
     
@@ -66,7 +58,7 @@ public class InputManager : MonoBehaviour
     }
     void Update(){
         GC.processAim(onFoot.Aim.ReadValue<float>());
-        //GC.Shoot(onFoot.Shoot.ReadValue<float>());
+        GC.Shoot(onFoot.Shoot.ReadValue<float>());
         motor.Sprint(onFoot.Sprint.ReadValue<float>());
     }
 

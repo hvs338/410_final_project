@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cfd4893c3e442348b100efe989d006b, type: 3}
   m_Name: SMG 1
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: SMG 1
+  description: 'Press Q to buy, PRICE : 900'
   icon: {fileID: 0}
-  prefab: {fileID: 1685171252543576, guid: de16df791b015014f87c9e4a2bd4ce31, type: 3}
+  prefab: {fileID: 1685171252543576, guid: a81118a922b0f0b4494d69081e4bcd96, type: 3}
   Magazine: 30
   Capacity: 260
   range: 40
   damage: 20
+  information: 'Press Q to buy, PRICE : 900'
   playerspeed: 1.1
   price: 900
   gun_type: 1
   priority: 1
+  bought_before: 0
+  fireRate: 0.85

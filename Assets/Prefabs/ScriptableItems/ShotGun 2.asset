@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: ShotGun 2
   m_EditorClassIdentifier: 
   name: 
-  description: 
+  description: 'Press Q to buy, PRICE : 900'
   icon: {fileID: 0}
-  prefab: {fileID: 109842, guid: 029c041c331bb0c4cb4b48887b6508da, type: 3}
+  prefab: {fileID: 109842, guid: 7f0411f7278631b4f8fa1c045f27d70b, type: 3}
   Magazine: 5
   Capacity: 50
   range: 20
   damage: 30
+  information: 'Press Q to buy, PRICE : 900'
   playerspeed: 1.1
   price: 900
   gun_type: 0
   priority: 1
+  bought_before: 0
+  fireRate: 1
