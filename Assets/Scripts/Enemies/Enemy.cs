@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     public bool isAttacking;
     
     public Animator Zombie_anim;
+    private Vector3 _angles;
     
 
     //States
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
         Zombie_anim = GetComponent<Animator>();
 
         Zombie_anim.SetBool("idle",true);
+        _angles = new Vector3(0.0f, 1.0f, 0.0f);
 
         
 
@@ -116,8 +118,19 @@ public class Enemy : MonoBehaviour
         
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
-        
+        //transform.LookAt(player);
+        // change this so that it uses linear algebra from math, this cuases the zombies to fall over
+        //4-6-21 file on canvas will work 
+        // only apply to y axis
+        Vector3 d = player.transform.position - transform.position;
+        d.Normalize();
+        float angle = Mathf.Rad2Deg * Mathf.Acos(Vector3.Dot(Vector3.forward, d));
+        _angles.y = angle;
+        transform.eulerAngles = _angles;
+
+
+
+
         //Debug.Log("already attacked outside coroutine" + alreadyAttacked.ToString());
         if (alreadyAttacked == false)
         {
@@ -129,7 +142,7 @@ public class Enemy : MonoBehaviour
             player_with_components.Health_bar.SetHealth(player_with_components.currentHealth);
 
             alreadyAttacked = true;
-            StartCoroutine(ResetAttack(2f));
+            StartCoroutine(ResetAttack(1.5f));
         }
     }
     public IEnumerator ResetAttack(float seconds)

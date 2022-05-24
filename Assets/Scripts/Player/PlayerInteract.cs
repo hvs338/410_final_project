@@ -96,6 +96,7 @@ public class PlayerInteract : MonoBehaviour
 
                 int to_add = new_item.Capacity - gun_controller.reserveAmmo;
                 gun_controller.reserveAmmo += to_add;
+                gun_controller.playerPoints =gun_controller.playerPoints -350;
 
             }
 

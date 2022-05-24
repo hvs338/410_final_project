@@ -19,7 +19,7 @@ MonoBehaviour:
   Magazine: 1
   Capacity: 40
   range: 100
-  damage: 30
+  damage: 45
   information: 'Press Q to buy, PRICE : 1000'
   playerspeed: 0.95
   price: 1000

@@ -67,24 +67,28 @@ public class GunController : MonoBehaviour
 
     private InventoryController IC;
     private Gun Weapon;
+    private float time_start;
 
     
 
     public void Start(){
 
         canshoot = true;        
-        playerPoints = 1000;
+        playerPoints = 2000;
         cam = Camera.main.transform;
         player = GameObject.Find("Player");
         gun = GameObject.Find("FPS");
+
+        fps_animator = GameObject.Find("FPS").GetComponent<Animator>();
         aim_pos_vec = aim_pos.transform.localPosition;
         original_pos_vec = original_pos.transform.localPosition;
 
-        anim = GetComponentInChildren<UnityEngine.Animator>();
+        //anim = GetComponentInChildren<UnityEngine.Animator>();
         
-        
+       
         canReload = false;
-        fps_animator = GetComponentInChildren<UnityEngine.Animator>();
+  
+        
         Audio = GetComponentInChildren<AudioSource>();
         Health_bar.SetMaxHealth(player_health);
         currentHealth = player_health;
@@ -106,34 +110,65 @@ public class GunController : MonoBehaviour
     }
        private void Update()
     {
-    
+        // Player UI
         string clipSize_string = Magazine.ToString();
-
         string currentAmmo_string = currentAmmo.ToString();
         string reserve = reserveAmmo.ToString();
-
         string fullDisplay = currentAmmo_string +" / "+ reserve;
-        
         AmmoCount.SetText(fullDisplay);
         Points.SetText("$"+playerPoints.ToString());
+
+        //if( time_start > 0){
+         //       fps_animator.SetBool("Firing",false);
+        //}
+
+        if(time_start <= 0){
+            canshoot = true;
+            
+        }
+        else{
+            time_start -= Time.deltaTime;
+            
+            fps_animator.SetBool("Firing",false);
+        
+        }
+
+
      
     }
     private void FixedUpdate(){
         AnimatorStateInfo info = fps_animator.GetCurrentAnimatorStateInfo(0);
 
-        if(info.IsName("Fire")) anim.SetBool("Firing",false);
+        if(info.IsName("Fire")) fps_animator.SetBool("Firing",false);
+
+        
+         //Shooting Logic
+
+        
+
     }
     
     public void Shoot(float input){
+        //float input){
+            
+            //bool pressed;
+            //pressed = input.isPressed;
         
         if(input == 1){
-            
+   
             if(canshoot == true){
-                fps_animator.SetBool("Firing",true);
-                Audio.Play();
+                
+                time_start = IC.Guns[IC.currentlyEquipped].fireRate;
+                
                 if(currentAmmo > 0){
+                    fps_animator.SetBool("Firing",true);
                     muzzleFlash.Play();
                     bullet.Play();
+                    Audio.Play();
+
+                    Debug.Log("HERE");
+                    //fps_animator.SetBool("Firing",true);
+                    Debug.Log("should be working");
                     canshoot = false;
                     currentAmmo = currentAmmo-1;
                     
@@ -155,14 +190,19 @@ public class GunController : MonoBehaviour
                     }
                 }
             }
-            anim.SetBool("Firing",false);
-            }
-            else{
+        }
+        
+        
+            //}
+        else{
             //Debug.Log("hey");
-            StartCoroutine(CooldownFinished(IC.Guns[IC.currentlyEquipped].fireRate));
+            //StartCoroutine(CooldownFinished(IC.Guns[IC.currentlyEquipped].fireRate));
+            //canshoot = true;
 
+        }
+        
     }
-    }
+    
 
     public void Reload(){
          
@@ -196,19 +236,19 @@ public class GunController : MonoBehaviour
     }
 
     public void processAim(float input){
-
+        
         
         if(!isReloading){
 
 
         
             if(input == 1){
-                anim.SetBool("Aiming",true);
+                //anim.SetBool("Aiming",true);
 
-                gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,aim_pos_vec,Time.deltaTime*aimSpeed);
+                //gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,aim_pos_vec,Time.deltaTime*aimSpeed);
             }
             else{
-                anim.SetBool("Aiming",false);
+                fps_animator.SetBool("Aiming",false);
 
                 gun.transform.localPosition = Vector3.Lerp(gun.transform.localPosition,original_pos_vec,Time.deltaTime*aimSpeed);
 
@@ -217,10 +257,10 @@ public class GunController : MonoBehaviour
 
         //gun.transform.Localosition = Vector3.Lerp(gun.transform.localPosition,aim_pos_vec,Time.deltaTime*aimSpeed);
         }
-
+    
     }
-        IEnumerator CooldownFinished(float fire_rate)
-    {
+        public IEnumerator CooldownFinished(float fire_rate)
+        {
         
         yield return new WaitForSeconds(fire_rate);
         canshoot = true;

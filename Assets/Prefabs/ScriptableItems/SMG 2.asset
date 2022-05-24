@@ -26,4 +26,4 @@ MonoBehaviour:
   gun_type: 1
   priority: 1
   bought_before: 1
-  fireRate: 0.85
+  fireRate: 0.05
