@@ -6,6 +6,7 @@ using UnityEngine;
 public class Gun : Item
 {
         public GameObject prefab;
+        public string name_compare;
         public int Magazine;
         public int Capacity;
         public float range;

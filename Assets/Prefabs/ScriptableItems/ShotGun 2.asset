@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'Press Q to buy, PRICE : 900'
   icon: {fileID: 0}
   prefab: {fileID: 109842, guid: 7f0411f7278631b4f8fa1c045f27d70b, type: 3}
+  name_compare: ShotGun1
   Magazine: 5
   Capacity: 50
   range: 20

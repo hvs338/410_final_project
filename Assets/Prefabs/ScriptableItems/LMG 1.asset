@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'Press Q to buy, PRICE : 1500'
   icon: {fileID: 0}
   prefab: {fileID: 1009478727420002, guid: 2628dca6bd1f784409a449b3cb2cf99c, type: 3}
+  name_compare: LMG1
   Magazine: 50
   Capacity: 350
   range: 50

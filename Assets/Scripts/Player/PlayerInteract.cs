@@ -52,8 +52,10 @@ public class PlayerInteract : MonoBehaviour
             Gun new_gun = info.transform.GetComponent<ItemObject>().item as Gun;
 
             bought_before2 = check_in_inventory(new_gun);
-            //Debug.Log(bought_before2);
-            if(bought_before != true){
+
+            Debug.Log(bought_before2);
+
+            if(bought_before2 != true){
             itemDescription.SetText(new_gun.information);
             }
             else{
@@ -85,9 +87,10 @@ public class PlayerInteract : MonoBehaviour
             Debug.Log(new_item.name);
 
 
-            bought_before = check_in_inventory(new_item);
+            bought_before2 = check_in_inventory(new_item);
+       
 
-            if( new_item.price <= gun_controller.playerPoints && bought_before != true ){
+            if( new_item.price <= gun_controller.playerPoints && bought_before2 != true ){
                 
                 inventory.addItem(new_item);
                 //new_item.bought_before = true;
@@ -111,6 +114,9 @@ public class PlayerInteract : MonoBehaviour
     }
     public bool check_in_inventory(Gun new_item){
 
+
+            bool in_inventory = false;
+
             int inventory_length = inventory.Guns.Length;
             //Debug.Log(inventory_length);
             for (int i = 0; i < inventory_length; i ++){
@@ -118,20 +124,18 @@ public class PlayerInteract : MonoBehaviour
                 
                 if(inventory.Guns[i] != null){
                     //Debug.Log(inventory.Guns[i].name);
-                if(new_item.name == inventory.Guns[i].name){
-                    //print("ITS TRUE");
-                    bought_before = true;
-                    return bought_before;
+                if(new_item.name_compare == inventory.Guns[i].name_compare){
+                   // Debug.Log(inventory.Guns[i].name_compare==new_item.name_compare);
+                    
+                    print("ITS TRUE");
+                    in_inventory = true;
+                    return in_inventory;
                     }
-                else{
-                    bought_before = false;
-                    return bought_before;
-                }
                 }
                 
             }
 
-        return bought_before;
+        return in_inventory;
         
     
         }

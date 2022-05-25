@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'Press Q to buy, PRICE : 800'
   icon: {fileID: 0}
   prefab: {fileID: 15471636768228720, guid: 6ed2d2af49050f049b5ca81d6ad493a5, type: 3}
+  name_compare: AK-47
   Magazine: 30
   Capacity: 270
   range: 50

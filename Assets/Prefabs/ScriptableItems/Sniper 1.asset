@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'Press Q to buy, PRICE : 1000'
   icon: {fileID: 0}
   prefab: {fileID: 8038777645927203370, guid: fa4931af7712edd48b6fb355c5a58588, type: 3}
+  name_compare: Sniper1
   Magazine: 1
   Capacity: 40
   range: 100

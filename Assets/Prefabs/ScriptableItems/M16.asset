@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'Press Q to buy, PRICE : 1000'
   icon: {fileID: 0}
   prefab: {fileID: 1173155406573634, guid: 5f427e54a88fe8f4ba6929aa8291cd2f, type: 3}
+  name_compare: M16
   Magazine: 30
   Capacity: 260
   range: 50

@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'Press Q to buy, PRICE : 900'
   icon: {fileID: 0}
   prefab: {fileID: 1685171252543576, guid: a81118a922b0f0b4494d69081e4bcd96, type: 3}
+  name_compare: SMG1
   Magazine: 30
   Capacity: 260
   range: 40
