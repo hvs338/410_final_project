@@ -40,6 +40,7 @@ public class PlayerInteract : MonoBehaviour
     }
 
     private void Update(){
+        bought_before2 = false;
 
         itemDescription.SetText(string.Empty);
         Ray ray = new Ray(cam.transform.position,cam.transform.forward);
@@ -60,6 +61,8 @@ public class PlayerInteract : MonoBehaviour
             }
 
         }
+
+        
 
     }
 
