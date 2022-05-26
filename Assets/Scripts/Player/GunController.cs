@@ -43,6 +43,11 @@ public class GunController : MonoBehaviour
     public TextMeshProUGUI AmmoCount;
     public TextMeshProUGUI Points;
 
+    // Elias Added
+    public TextMeshProUGUI Rounds;
+    public GameManagment zomRound;
+    
+
     //public Animator animation;
     public GameObject ak;
 
@@ -117,6 +122,9 @@ public class GunController : MonoBehaviour
         string fullDisplay = currentAmmo_string +" / "+ reserve;
         AmmoCount.SetText(fullDisplay);
         Points.SetText("$"+playerPoints.ToString());
+        
+        int r = zomRound.round;
+        Rounds.SetText(r.ToString());
 
         //if( time_start > 0){
          //       fps_animator.SetBool("Firing",false);

@@ -14,7 +14,7 @@ public class GameManagment : MonoBehaviour
     [SerializeField] 
     public GameObject player;
    
-    public int round = 0;
+    public int round = 1;
     
         
     public int startCount = 2;
