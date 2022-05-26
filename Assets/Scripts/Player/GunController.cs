@@ -18,9 +18,9 @@ public class GunController : MonoBehaviour
     public int Magazine;
     public int AmmoCapacity;
     public float reloadTime;
-
     public float Firing;
     UnityEngine.Animator anim;
+
 
     public int player_health = 100;
     public int currentHealth;
@@ -42,11 +42,6 @@ public class GunController : MonoBehaviour
     //public float camShakeMagnitude, camShakeDuration;
     public TextMeshProUGUI AmmoCount;
     public TextMeshProUGUI Points;
-
-    // Elias Added
-    public TextMeshProUGUI Rounds;
-    public GameManagment zomRound;
-    
 
     //public Animator animation;
     public GameObject ak;
@@ -73,6 +68,12 @@ public class GunController : MonoBehaviour
     private InventoryController IC;
     private Gun Weapon;
     private float time_start;
+
+    public Image damage_image;
+    public Color damage_color;
+    public float currentHealth_percen;
+    private CanvasGroup trans;
+    public float player_health_regen = 12f;
 
     
 
@@ -106,8 +107,11 @@ public class GunController : MonoBehaviour
         reserveAmmo = Weapon.Capacity;
         Magazine = Weapon.Magazine;
 
+        
 
+        trans = GameObject.FindWithTag("PlayerDamage").GetComponent<CanvasGroup>();
 
+        trans.alpha = 0;
          
     
 
@@ -122,17 +126,13 @@ public class GunController : MonoBehaviour
         string fullDisplay = currentAmmo_string +" / "+ reserve;
         AmmoCount.SetText(fullDisplay);
         Points.SetText("$"+playerPoints.ToString());
+        Health_bar.SetHealth(currentHealth);
         
-        int r = zomRound.round;
-        Rounds.SetText(r.ToString());
 
-        //if( time_start > 0){
-         //       fps_animator.SetBool("Firing",false);
-        //}
 
+        // SHOOTING LOGIC
         if(time_start <= 0){
-            canshoot = true;
-            
+            canshoot = true;  
         }
         else{
             time_start -= Time.deltaTime;
@@ -140,6 +140,26 @@ public class GunController : MonoBehaviour
             fps_animator.SetBool("Firing",false);
         
         }
+
+        // PLAYER HEALTH
+        currentHealth_percen = (float)currentHealth/100f;
+        trans.alpha = 1.0f-currentHealth_percen;
+        //Debug.Log(trans.alpha);
+
+        /*
+        if(player_health_regen <= 0){
+
+            if(currentHealth< 100){
+                currentHealth += 5 ;
+            }
+             
+        }
+        else{
+           player_health_regen -=Time.deltaTime;
+        
+        }
+        */
+        
 
 
      

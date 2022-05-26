@@ -13,6 +13,7 @@ TagManager:
   - LevelPart
   - Dummie
   - Enemy
+  - PlayerDamage
   layers:
   - Default
   - TransparentFX
