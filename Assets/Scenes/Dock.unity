@@ -6059,6 +6059,8 @@ MonoBehaviour:
   fleshHit: {fileID: 100002, guid: 3b1513bcb86426b4795879be6a128ed7, type: 3}
   AmmoCount: {fileID: 689856477}
   Points: {fileID: 1575838017}
+  Rounds: {fileID: 1488772560}
+  zomRound: {fileID: 1670622623}
   ak: {fileID: 0}
   original_pos: {fileID: 885452149}
   original_pos_vec: {x: 0, y: 0, z: 0}
@@ -27118,7 +27120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4800, y: -1594.9999}
+  m_AnchoredPosition: {x: 3800, y: -1594.9999}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1488772560

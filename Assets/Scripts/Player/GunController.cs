@@ -43,6 +43,9 @@ public class GunController : MonoBehaviour
     public TextMeshProUGUI AmmoCount;
     public TextMeshProUGUI Points;
 
+    public TextMeshProUGUI Rounds;
+    public GameManagment zomRound;
+
     //public Animator animation;
     public GameObject ak;
 
@@ -128,8 +131,8 @@ public class GunController : MonoBehaviour
         Points.SetText("$"+playerPoints.ToString());
         Health_bar.SetHealth(currentHealth);
         
-
-
+        int r = zomRound.round;
+        Rounds.SetText(r.ToString());
         // SHOOTING LOGIC
         if(time_start <= 0){
             canshoot = true;  
