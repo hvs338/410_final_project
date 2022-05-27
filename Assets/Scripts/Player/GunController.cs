@@ -42,9 +42,15 @@ public class GunController : MonoBehaviour
     //public float camShakeMagnitude, camShakeDuration;
     public TextMeshProUGUI AmmoCount;
     public TextMeshProUGUI Points;
+    
 
+    // Elias ADDED
     public TextMeshProUGUI Rounds;
     public GameManagment zomRound;
+    public TextMeshProUGUI ZomAlive;
+    [SerializeField]
+    public ZombieCounter aliveCount;
+    
 
     //public Animator animation;
     public GameObject ak;
@@ -131,8 +137,12 @@ public class GunController : MonoBehaviour
         Points.SetText("$"+playerPoints.ToString());
         Health_bar.SetHealth(currentHealth);
         
+        //Elias Adds
         int r = zomRound.round;
         Rounds.SetText(r.ToString());
+        int a = aliveCount.counter;
+        ZomAlive.SetText("Alive:"+ a.ToString());
+
         // SHOOTING LOGIC
         if(time_start <= 0){
             canshoot = true;  
