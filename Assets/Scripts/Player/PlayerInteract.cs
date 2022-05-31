@@ -15,7 +15,9 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private float distance = 3f;
     [SerializeField]
-    private LayerMask PickUp_layer;
+    private LayerMask PickUp_Gun;
+    [SerializeField]
+    private LayerMask Power_Up;
     private PlayerUI playerUI;
 
     private InputManager inputManager;
@@ -46,8 +48,9 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = new Ray(cam.transform.position,cam.transform.forward);
         RaycastHit info;
         Debug.DrawRay(ray.origin,ray.direction*distance);
-        if(Physics.Raycast(ray,out info,distance,PickUp_layer)){
+        if(Physics.Raycast(ray,out info,distance,PickUp_Gun)){
 
+            
             
             Gun new_gun = info.transform.GetComponent<ItemObject>().item as Gun;
 
@@ -63,6 +66,17 @@ public class PlayerInteract : MonoBehaviour
             }
 
         }
+        else if(Physics.Raycast(ray,out info,distance,Power_Up)){
+            Debug.Log(info.transform.name);
+            PowerUp new_power = info.transform.GetComponent<PowerUp>();
+
+            
+            string information = new_power.Usage();
+            Debug.Log(information);
+
+            itemDescription.SetText(new_power.Usage());
+        }
+
 
         
 
@@ -78,7 +92,7 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = new Ray(cam.transform.position,cam.transform.forward);
         RaycastHit info;
         Debug.DrawRay(ray.origin,ray.direction*distance);
-        if(Physics.Raycast(ray,out info,distance,PickUp_layer)){
+        if(Physics.Raycast(ray,out info,distance,PickUp_Gun)){
            
             
 
@@ -111,6 +125,12 @@ public class PlayerInteract : MonoBehaviour
             itemDescription.SetText("Not Enough Money, go kill some Zombies Loser");
             
         }
+        else if(Physics.Raycast(ray,out info,distance,Power_Up)){
+            Debug.Log(info.transform.name);
+            PowerUp new_power = info.transform.GetComponent<PowerUp>();
+
+            new_power.Power();
+    }
     }
     public bool check_in_inventory(Gun new_item){
 

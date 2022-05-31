@@ -14,11 +14,12 @@ TagManager:
   - Dummie
   - Enemy
   - PlayerDamage
+  - PowerUp
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PowerUp
   - Water
   - UI
   - Enemy
