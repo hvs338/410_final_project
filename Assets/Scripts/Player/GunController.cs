@@ -89,7 +89,7 @@ public class GunController : MonoBehaviour
     public void Start(){
 
         canshoot = true;        
-        playerPoints = 2000;
+        playerPoints = 0;
         cam = Camera.main.transform;
         player = GameObject.Find("Player");
         gun = GameObject.Find("FPS");
