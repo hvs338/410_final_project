@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+// Written by Elias
 public class GameManagment : MonoBehaviour
-{
+{   
+
+
+    [SerializeField]
+    private Button factoryv2;
+
+    [SerializeField]
+    private Button dock;
+
     public Transform[] zombieSpawnPoints;
 
     public GameObject zombieEnemy;
@@ -19,6 +29,9 @@ public class GameManagment : MonoBehaviour
         
     public int startCount = 2;
     
+    [SerializeField]
+    public MapInfo map;
+
     
     [SerializeField]
     public ZombieCounter aliveCount;
@@ -49,30 +62,20 @@ public class GameManagment : MonoBehaviour
 
 
     }
-/*
-    void BeginNewRound(){
-        Debug.Log("Wave Completed!");
-        state = SpawnState.COUNTING;
-        waveCountDown = timeBetweenWaves;
-        if(aliveCount.counter == 0){
-            Debug.Log("All waves complete!");
-        }
-        
-    }
-*/
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        map.round = 0;
         waveCountDown = timeBetweenWaves;
         aliveCount.counter = 0;
-
+        map.name = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
     void Update()
     {   
        
-
+        map.round = round;
         if(waveCountDown <= 0){
             if(state != SpawnState.SPAWNING){
                 // START spawning wave
@@ -104,17 +107,11 @@ public class GameManagment : MonoBehaviour
             yield return new WaitForSeconds(3);
         }
 
-        
-
         state = SpawnState.WAITING;
-
-
 
         yield break;
     }
     
-
-
     void SpawnZombie(GameObject _enemy){
 
         Vector3 randomSpawnPoint = zombieSpawnPoints[Random.Range(0, zombieSpawnPoints.Length)].position;

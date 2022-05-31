@@ -29899,6 +29899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c997c082fb8101641b491123c2f473d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  factoryv2: {fileID: 0}
+  dock: {fileID: 0}
   zombieSpawnPoints:
   - {fileID: 1448346830}
   - {fileID: 1526754878}
@@ -29907,6 +29909,7 @@ MonoBehaviour:
   player: {fileID: 451616634}
   round: 0
   startCount: 2
+  map: {fileID: 11400000, guid: e508a6edb71ae61439651ae1ba3c3da5, type: 2}
   aliveCount: {fileID: 11400000, guid: 62ba9a42e677ad24d8d60584907a205a, type: 2}
   timeBetweenWaves: 20
   waveCountDown: 0
