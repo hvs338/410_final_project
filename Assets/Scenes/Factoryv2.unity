@@ -39192,16 +39192,16 @@ RectTransform:
   m_GameObject: {fileID: 1572161653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.046603, y: 3.7575989, z: 0}
+  m_LocalScale: {x: 8.66056, y: 5.530434, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 150240192}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.8999939, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -700, y: -410}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1572161655
 CanvasGroup:
@@ -59200,6 +59200,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5778198195663899022, guid: 171205e59897bbe4a9f8100d86a3d9fb,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5778198197454457069, guid: 171205e59897bbe4a9f8100d86a3d9fb,
         type: 3}
       propertyPath: m_Name

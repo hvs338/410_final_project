@@ -18,8 +18,10 @@ public class MaxHealth : PowerUp
 
     public override void Power(){
 
-        if (player.currentHealth < 100){
 
+        if (player.currentHealth < 100 && player.playerPoints >= 750){
+        
+        player.playerPoints -= 750;
         int to_add = player.player_health - player.currentHealth;
         player.currentHealth += to_add;
         Audio.Play();
