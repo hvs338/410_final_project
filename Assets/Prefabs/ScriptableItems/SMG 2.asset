@@ -27,4 +27,5 @@ MonoBehaviour:
   gun_type: 1
   priority: 1
   bought_before: 1
+  audio: {fileID: 8300000, guid: 46c1b6803cb301e439645251113b0d95, type: 3}
   fireRate: 0.05

@@ -24,7 +24,8 @@ public class Gun : Item
         public bool bought_before;
         
         private bool bought ;
-        public bool BOUGHT {get { return bought;}}
+        
+        public AudioClip audio;
 
         public float fireRate;
 

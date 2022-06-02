@@ -71,6 +71,7 @@ public class GunController : MonoBehaviour
     public IEnumerator coroutine;
     private Animator fps_animator;
     public AudioSource Audio;
+    public AudioClip audioClip;
 
     public healthBar Health_bar;
 
@@ -89,7 +90,7 @@ public class GunController : MonoBehaviour
     public void Start(){
 
         canshoot = true;        
-        playerPoints = 0;
+        playerPoints = 2000;
         cam = Camera.main.transform;
         player = GameObject.Find("Player");
         gun = GameObject.Find("FPS");
@@ -183,6 +184,7 @@ public class GunController : MonoBehaviour
         if(info.IsName("Fire")) fps_animator.SetBool("Firing",false);
 
         
+        audioClip = IC.Guns[IC.currentlyEquipped].audio;
          //Shooting Logic
 
         
@@ -205,7 +207,7 @@ public class GunController : MonoBehaviour
                     fps_animator.SetBool("Firing",true);
                     muzzleFlash.Play();
                     bullet.Play();
-                    Audio.Play();
+                    Audio.PlayOneShot(audioClip);
 
                     Debug.Log("HERE");
                     //fps_animator.SetBool("Firing",true);

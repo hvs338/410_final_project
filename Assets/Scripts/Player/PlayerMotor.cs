@@ -16,6 +16,9 @@ public class PlayerMotor : MonoBehaviour
     public bool crouching;
     public bool lerpCrouching;
     public bool sprinting;
+
+    public AudioSource audio;
+    public AudioClip audioClip;
     
 
 
@@ -23,6 +26,7 @@ public class PlayerMotor : MonoBehaviour
     void Start()
     {
      controller = GetComponent<CharacterController>();   
+     audio = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,13 +49,17 @@ public class PlayerMotor : MonoBehaviour
             lerpCrouching = false;
             crouchTimer = 0f;
         }
-     }   
+     } 
+
+       
     }
 
     public void ProcessMove(Vector2 input){
        Vector3 moveDirection = Vector3.zero;
        moveDirection.x = input.x;
        moveDirection.z = input.y;
+       audio.PlayOneShot(audioClip);
+       //Debug.Log(audio);
        controller.Move(transform.TransformDirection(moveDirection)*speed*Time.deltaTime); 
        if (isGrounded && playerVelocity.y < 0){
            playerVelocity.y = -2f;
