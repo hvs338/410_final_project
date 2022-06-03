@@ -18,10 +18,10 @@ public class SceneSelect : MonoBehaviour
     void FixedUpdate(){
 
         Debug.Log(map);
-        if(map != null && map.name.Equals("Factory") && map.round >= 1){
+        if(map != null && map.name.Equals("Factory") && map.round >= 2){
             factoryv2.SetActive(true);
         }
-        if(map != null && map.name.Equals("Factoryv2") && map.round >= 1){
+        if(map != null && map.name.Equals("Factoryv2") && map.round >= 2){
             factoryv2.SetActive(true);
             dock.SetActive(true);
         }
