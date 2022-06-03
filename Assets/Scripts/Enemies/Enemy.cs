@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
 
         Zombie_anim.SetBool("idle",true);
         _angles = new Vector3(0.0f, 1.0f, 0.0f);
+        agent.speed = 2f;
 
         
 
