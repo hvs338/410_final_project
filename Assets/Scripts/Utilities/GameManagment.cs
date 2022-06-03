@@ -36,7 +36,11 @@ public class GameManagment : MonoBehaviour
     [SerializeField]
     public ZombieCounter aliveCount;
 
-    
+    public GameOverScreen GameOverScreen;
+
+    public void GameOver(){
+        GameOverScreen.Setup(round);
+    }
     private int nextWave = 1;
 
     public float timeBetweenWaves = 20f;
