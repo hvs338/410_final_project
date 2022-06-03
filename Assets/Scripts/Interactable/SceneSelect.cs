@@ -15,13 +15,13 @@ public class SceneSelect : MonoBehaviour
     [SerializeField]
     public MapInfo map;
 
-    void Start(){
+    void FixedUpdate(){
 
         Debug.Log(map);
-        if(map != null && map.name.Equals("Factory") && map.round >= 2){
+        if(map != null && map.name.Equals("Factory") && map.round >= 1){
             factoryv2.SetActive(true);
         }
-        if(map != null && map.name.Equals("Factoryv2") && map.round >= 3){
+        if(map != null && map.name.Equals("Factoryv2") && map.round >= 1){
             factoryv2.SetActive(true);
             dock.SetActive(true);
         }
